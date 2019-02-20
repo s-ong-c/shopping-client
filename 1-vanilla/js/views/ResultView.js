@@ -31,4 +31,9 @@ ResultView.getSearchItemHtml = function (item){
     <p>${item.name}</p>
     </li>`
 }
+
+
+
+
+
 export default ResultView
