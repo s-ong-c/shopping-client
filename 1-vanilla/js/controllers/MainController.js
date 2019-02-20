@@ -18,9 +18,11 @@ export default{
 
         KeywordView.setup(document.querySelector('#search-keyword'))
         .on('@click',e=>this.onClickKeyword(e.detail.keyword))
+        
         ResultView.setup(document.querySelector('#search-result'))
 
         this.selectedTab ='추천 검색어'
+
         this.renderView()
 
     },
@@ -28,14 +30,16 @@ export default{
     renderView(){
         console.log(tag,'renderView()');
         TabView.setActiveTab(this.selectedTab)
+
          if(this.selectedTab ==='추천 검색어'){
             this.fetchSearchKeyword()
          }else{
-
+            debugger
          }
 
         ResultView.hide()
     },
+
     fetchSearchKeyword(){
         KeywordModel.list().then(data =>{
             KeywordView.render(data)
@@ -43,6 +47,7 @@ export default{
     },
     
     search(query){
+      FormView.setValue(query)
       console.log(tag,'search()',query)
       SearchModel.list(query).then(data=>{
         this.onSearchResult(data)
@@ -57,7 +62,7 @@ export default{
 
     onResetForm(){
         console.log(tag,'onResetForm()');
-        ResultView.hide();
+        this.renderView()
     },
     onSearchResult(data){
       TabView.hide()
