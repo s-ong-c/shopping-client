@@ -29,6 +29,6 @@ export default{
         console.log(tag,'onResetForm()');
     },
     onSearchResult(data){
-    ResultView.render(data)
+      ResultView.render(data)
     }
 }
