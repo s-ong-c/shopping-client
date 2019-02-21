@@ -16,8 +16,8 @@ HistoryView.setup = function (el) {
 
 HistoryView.render = function (data = []) {
     this.el.innerHTML = data.length ? this.getKeywordsHtml(data) : this.messages.NO_KEYWORDS
-    this.bindClickEvent()
     this.show()
+    return this
 }
 HistoryView.getKeywordsHtml = function (data){
    return data.reduce((html,item)=>{
@@ -29,11 +29,17 @@ HistoryView.getKeywordsHtml = function (data){
        return html
    },'<ul class="list">')+'</ul>'
 }
-// HistoryView.bindClickEvent = function () {
-//     Array.from(this.el.querySelectorAll('li')).forEach(li =>{
-//         li.addEventListener('click',e=>this.onClickKeyword(e))
-//     })
-// }
+HistoryView.bindRemoveBtn = function () {
+    Array.from(this.el.querySelectorAll('button.btn-remove')).forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation()
+        this.onRemove(btn.parentElement.dataset.keyword)
+      })
+    })
+  }
+HistoryView.onRemove = function(keyword){
+    this.emit('@remove',{keyword})
+}
 // HistoryView.onClickKeyword = function(e){
 //     const{keyword} = e.currentTarget.dataset
 //     this.emit('@click',{keyword})
