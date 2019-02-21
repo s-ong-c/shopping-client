@@ -63,6 +63,7 @@ export default{
     
     search(query){
       FormView.setValue(query)
+      HistoryModel.add(query)
       console.log(tag,'search()',query)
       SearchModel.list(query).then(data=>{
         this.onSearchResult(data)
@@ -85,7 +86,8 @@ export default{
       ResultView.render(data)
     },
     onChangeTab(tabName){
-        debugger
+        this.selectedTab =tabName
+        this.renderView()
     },
     onClickKeyword(keyword){
         this.search(keyword)
